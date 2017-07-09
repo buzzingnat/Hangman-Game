@@ -1,0 +1,13 @@
+/* the soundcloud code got upset if there were no dom 
+* elements with valid width and heighth to target, so
+* some trickery was used to hide the soundcloud embeds
+* from the user but leave them visible to the code, 
+* therefore avoiding errors in the console */
+.visuallyhidden { 
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 1 300);
+  height: 1px; width: 300px; 
+  margin: 2px; padding: 1; border: 0;
+  visibility: hidden; 
+}
