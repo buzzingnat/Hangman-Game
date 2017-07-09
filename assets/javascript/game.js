@@ -119,11 +119,12 @@ function newBirb() {
   correctGuesses = [];
   wrongGuesses = [];
   guessCounter = 10;
-  var currentBirb = chooseBirb();
-  var birbText = createBirbText(currentBirb);
+  var birb = chooseBirb();
+  var birbText = createBirbText(birb);
   displayBirbText(birbText);
   $("#alreadyGuessedLetter").html(wrongGuesses);
   $("#guessRemainNumber").html(guessCounter);
+  return birb;
 }
 
 function processKey(pressedKey) {
@@ -139,8 +140,12 @@ function processKey(pressedKey) {
   }
 }
 
+function newBirbOnWin() {
+  currentBirb = newBirb();
+}
+
 function newBirbOnLose() {
-  newBirb();
+  currentBirb = newBirb();
   $("#embedLink").attr("src", utility.typing.embedLink);
   $("#gifLink").attr("href", utility.typing.gifLink);
 }
@@ -163,6 +168,7 @@ function checkLose() {
 function storeKeyPress(processedKey, birb) {
   if ( birb.name.toLowerCase().indexOf(processedKey) > -1 ) {
     correctGuesses.push(processedKey);
+    return;
   } else {
     //check if player has lost before continuing
     checkLose();
@@ -195,34 +201,37 @@ function playWinSound(iframeId, start, length) {
 }
 
 function checkWin(displayedText, birb) {
+  console.log("Checking if won, text contains underscore at: " + displayedText.indexOf("_"));
   if (displayedText.indexOf("_") === -1) {
     $("#embedLink").attr("src", birb.embedLink);
     $("#gifLink").attr("href", birb.gifLink);
     pickAndPlaySound();
-    setTimeout(newBirb, 3500);
+    setTimeout(newBirbOnWin, 4000);
   }
 }
 
 var soundArray = [
   ["soundcloudEmbed-Chocobo", 1000, 5500],
   ["soundcloudEmbed-Simple", 7500, 3500]
-]
+];
 
 function pickAndPlaySound() {
   var index = Math.floor(Math.random()*soundArray.length);
   playWinSound(soundArray[index][0], soundArray[index][1], soundArray[index][2]);
 }
 
+// initial bird object for page load
+var currentBirb = newBirb();
+
 /** Run on page load **/
 $().ready( function() {
-  var currentBirb = chooseBirb();
-  displayBirbText( createBirbText(currentBirb) );
+  //var currentBirb = chooseBirb();
+  //displayBirbText( createBirbText(currentBirb) );
   $("body").on( "keyup", function(event) {
     var key = processKey( event.key );
     storeKeyPress( key, currentBirb );
     var birbText = createBirbText(currentBirb);
     displayBirbText(birbText);
     checkWin(birbText, currentBirb);
-    setTimeout(newBirb, 3500);
   });
 });
