@@ -67,6 +67,14 @@
 	line-height: 1em;
 }
 
+.wordDisplayTitle {
+	margin-top: 1.75em;
+}
+
+#wordDisplay {
+	padding: .25em 0;
+}
+
 #alreadyGuessedLetter {
 	min-height: 1em;
 }
