@@ -241,6 +241,7 @@ function checkWin(displayedText, birb) {
     $("#gifLink").attr("href", birb.gifLink);
     pickAndPlaySound();
     setTimeout(newBirbOnWin, 4000);
+    wins++;
 }
 
 var soundArray = [
@@ -262,11 +263,8 @@ $().ready(function() {
     //displayBirbText( createBirbText(currentBirb) );
     $("body").on("keyup", function(event) {
         if (gamePause) return;
-        console.log(event);
-        //var key = processKey(event.key);
         var key = String.fromCharCode(event.which);
         key = processKey(key);
-        console.log(key);
         if (!key) return;
         storeKeyPress(key, currentBirb);
         if (gamePause) {
