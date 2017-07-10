@@ -12,20 +12,63 @@
   visibility: hidden; 
 }
 
-/* Vertical align a block element relative to a parent
--------------------------------------------------- */
-.verticalAlignContainer {
-  position: relative;
-}
-.verticalCenter {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+.titleLogo {
+	vertical-align: baseline;
+	height: .75em;
+    width: .75em;
 }
 
-.verticalCenterRight.col-md-6 {
-  position: relative;
-  transform: translate(100%)
+.birbEmbed {
+	width:100%;
+	height:0;
+	padding-bottom:56%;
+	position:relative;
+}
+
+.jumbotron {
+	padding-bottom: 0;
+	margin-bottom: .5em;
+}
+
+.tree {
+    background: url("https://upload.wikimedia.org/wikipedia/commons/4/43/Tree-icon.png");
+    width: 12em;
+    height: 5em;
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+
+.tree > h3 {
+	padding-top: .75em;
+}
+
+.grass {
+    background: url(http://munns.com.au/image/data/Misc/munns_icons-08.png);
+    height: 1.5em;
+    width: 11em;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    margin-top: -1em;
+}
+
+.verticalCenter {
+	position: relative;
+	margin-top: 2em;
+}
+
+.gameText {
+	font-size: 3em;
+}
+
+.treeText {
+	margin-top: -.25em;
+	line-height: 1em;
+}
+
+#alreadyGuessedLetter {
+	min-height: 1em;
 }
 
 /* Sticky footer styles

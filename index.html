@@ -1,90 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- <link rel="icon" href="../../favicon.ico"> -->
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
+    <title>Birb Hangman</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+</head>
 
-  </head>
-
-  <body>
-
+<body>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <div class="container">
-        <div class="row verticalAlignContainer">
-          <div class="col-md-6 verticalCenter">
-            <div class="">
-              <h1 class="display-3">Birb Hangman</h1>
-              <p class="lead">Type any letter to begin. Guess the word and see a birb.</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="verticalCenter">
+                        <h1 class="display-2">
+                            <img src="assets/images/albinoCockatiel-cartoon-cute-birdhism.png" width="48" alt="Cartoon albino cockatiel" class="titleLogo">
+                            Birb Hangman
+                            </h1>
+                        <p class="lead">Type any letter to begin. Guess the word and see a birb.</p>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="embed-responsive birbEmbed">
+                        <iframe class="embed-responsive-item" id="embedLink" src="https://giphy.com/embed/D4ozghKanwmD6" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                    <p><a id="gifLink" href="https://giphy.com/gifs/keyboard-parrot-chewing-D4ozghKanwmD6">via GIPHY</a></p>
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/24213703&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false" id="soundcloudEmbed-Chocobo" class="visuallyhidden"></iframe>
+                    <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/220823435&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true" id="soundcloudEmbed-Simple" class="visuallyhidden"></iframe>
+                </div>
             </div>
-          </div>
-          <div class="col-md-6 verticalCenterRight">
-            <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe id="embedLink" src="https://giphy.com/embed/D4ozghKanwmD6" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a id="gifLink" href="https://giphy.com/gifs/keyboard-parrot-chewing-D4ozghKanwmD6">via GIPHY</a></p>
-            <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/24213703&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false" id="soundcloudEmbed-Chocobo" class="visuallyhidden"></iframe>
-            <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/220823435&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true" id="soundcloudEmbed-Simple" class="visuallyhidden"></iframe>
-          </div>
         </div>
-      </div>
     </div>
-
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row text-center">
-        <div class="col-md-2">
-          <h2>Wins</h2>
-          <h3 id="winNumber">0</h3>
+        <!-- Example row of columns -->
+        <div class="row text-center">
+            <div class="col-md-6">
+                <h3>Current Word</h3>
+                <p id="wordDisplay" class="gameText">_ _ _ _ _ _</p>
+            </div>
+            <div class="col-md-2">
+                <div class="tree"><h3>Guesses Left</h3></div>
+                <div class="grass"></div>
+                <p id="guessRemainNumber" class="gameText treeText">10</p>
+            </div>
+            <div class="col-md-2">
+                <div class="tree"><h3>Wrong Letters</h3></div>
+                <div class="grass"></div>
+                <p id="alreadyGuessedLetter" class="gameText treeText"></p>
+            </div>
+            <div class="col-md-2">
+                <div class="tree"><h3>Wins</h3></div>
+                <div class="grass"></div>
+                <p id="winNumber" class="gameText treeText">0</p>
+            </div>
         </div>
-        <div class="col-md-6">
-          <h2>Current Word</h2>
-          <h3 id="wordDisplay">_ _ _ _ _ _</h3>
-        </div>
-        <div class="col-md-2">
-          <h2>Guesses Remaining</h2>
-          <h3 id="guessRemainNumber">10</h3>
-        </div>
-        <div class="col-md-2">
-          <h2>Letters Already Guessed</h2>
-          <h3 id="alreadyGuessedLetter"></h3>
-        </div>
-      </div>
-
-      <hr>
-
-    </div> 
-
+        <hr>
+    </div>
     <footer class="footer">
-      <div class="container">
-        <span class="text-muted">&copy; Company 2017</span>
-      </div>
-    </footer><!-- /container -->
-
-
+        <div class="container text-center">
+            <span class="text-muted">&copy; Hillary Spratt 2017</span>
+        </div>
+    </footer>
+    <!-- /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
     <!-- Soundcloud JavaScript to control embedded sound -->
     <script src="assets/javascript/soundcloud.js"></script>
-
     <!-- Custom JavaScript for Game -->
     <script src="assets/javascript/game.js"></script>
-    
-  </body>
+</body>
+
 </html>
