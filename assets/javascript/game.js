@@ -137,7 +137,7 @@ function newBirb() {
 function processKey(pressedKey) {
     var key = pressedKey.toLowerCase();
     if (
-        key.search(/[a-z]/) === 0 &&
+        key.search(/^[a-z]$/) === 0 &&
         !correctGuesses.has(key) &&
         !wrongGuesses.has(key)
         ) {
@@ -262,7 +262,10 @@ $().ready(function() {
     //displayBirbText( createBirbText(currentBirb) );
     $("body").on("keyup", function(event) {
         if (gamePause) return;
-        var key = processKey(event.key);
+        console.log(event);
+        //var key = processKey(event.key);
+        var key = String.fromCharCode(event.which);
+        key = processKey(key);
         console.log(key);
         if (!key) return;
         storeKeyPress(key, currentBirb);
