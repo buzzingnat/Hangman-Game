@@ -7,6 +7,12 @@
 - #winNumber: track number of wins;
 - #guessRemainNumber: give max number of guesses (12) and subtract one each failed guess. When hit -1, instead od subtracting display utility.dead to video embed
 - #alreadyGuessedLetter: track clicked letter keys, MAKE THEM ALL LOWERCASE, display wrong guesses here - append them in a span with some padding and font styling maybe, when key press is same as wrong guess array or correct guess array, nothing happens;
+
+A lot changed during the actual production of the app, but this was my starting point.
+
+END FEATURES:
+
+
 */
 
 /** Arrays and Objects **/
@@ -225,16 +231,29 @@ function checkWin(displayedText, birb) {
         return;
     }
     gamePause = true;
+
+    // display gif/video of correct bird to screen
     $("#embedLink").attr("src", birb.embedLink);
     $("#gifLink").attr("href", birb.gifLink);
+
+    // set the pause game length equal to length of sound clip
     var timeoutLength = pickAndPlaySound();
+
+    // pause game and then create a new bird
     setTimeout(newBirbOnWin, timeoutLength);
+
+    // increment win counter
     wins++;
+
+    // display new win total to screen
+    $("#winNumber").html(wins);
 }
 
+// success sounds to choose from, all embedded in the html and hidden with css
 var soundArray = [
     ["soundcloudEmbed-Chocobo", 1000, 5500],
-    ["soundcloudEmbed-Simple", 7500, 3500]
+    ["soundcloudEmbed-Simple", 7500, 3500],
+    ["soundcloudEmbed-newZealand", 108000, 5000]
 ];
 
 function pickAndPlaySound() {
@@ -245,6 +264,7 @@ function pickAndPlaySound() {
 }
 
 // check if the user is interacting using a touch device
+// modified from: https://jsfiddle.net/dr17op67/3/
 window.addEventListener('touchstart', function onFirstTouch() {
 
     // 1: display button for bringing up the keyboard by setting a new class on it
@@ -255,9 +275,13 @@ window.addEventListener('touchstart', function onFirstTouch() {
     // 2: run the keyboard display code
     $("#openKeyboard").on("click", function(){
         console.log("The openKeyboard button was clicked");
+        
         var $inputElement = $("#hiddenInput");
         $inputElement.css("visibility", "visible"); // unhide the input
+        // use JS focus, not jQuery focus! Get the DOM element from jQuery 
+        // array by using [0]
         $("#hiddenInput")[0].focus(); // focus on it so keyboard pops
+        $("#hiddenInput")[0].click(); // android requires a click as well
         $inputElement.css("visibility", "hidden"); // hide it again
     });
 
@@ -330,25 +354,25 @@ var hangmanGame = (function () {
 */
 
 /*
-    NOTES ON DIFFERENT WAYS TO TRACK GUESSES
-    1) ES6
-    var wrongGuesses = new Set();
-    wrongGuesses.add(key);
-    if (wrongGuesses.has(key)) {
-        //code
-    }
+NOTES ON DIFFERENT WAYS TO TRACK GUESSES
+1) ES6
+var wrongGuesses = new Set();
+wrongGuesses.add(key);
+if (wrongGuesses.has(key)) {
+    //code
+}
 
-    2) CLASSIC JS: OBJECT
-    var wrongGuesses = {};
-    wrongGuesses[key] = true;
-    if (wrongGuesses[key]) {
-        //code
-    }
+2) CLASSIC JS: OBJECT
+var wrongGuesses = {};
+wrongGuesses[key] = true;
+if (wrongGuesses[key]) {
+    //code
+}
 
-    3) CLASSIC JS: ARRAY
-    var wrongGuesses = [];
-    wrongGuesses.push(key);
-    if (wrongGuesses.indexOf(key) > -1) {
-        //code
-    }
+3) CLASSIC JS: ARRAY
+var wrongGuesses = [];
+wrongGuesses.push(key);
+if (wrongGuesses.indexOf(key) > -1) {
+    //code
+}
 */
