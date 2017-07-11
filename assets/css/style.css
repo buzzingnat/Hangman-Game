@@ -4,6 +4,7 @@
 /* google font for main text */
 body {
   font-family: 'Oswald', 'Arial', sans-serif;
+  width: 100vw;
 }
 
 /* google font for headings */
