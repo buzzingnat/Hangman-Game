@@ -1,15 +1,34 @@
+/* import google fonts for headings and main text */
+@import url('https://fonts.googleapis.com/css?family=Miltonian+Tattoo|Oswald:300');
+
+/* google font for main text */
+body {
+  font-family: 'Oswald', 'Arial', sans-serif;
+}
+
+/* google font for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Miltonian Tattoo', 'Copperplate', fantasy;
+}
+
 /* the soundcloud code got upset if there were no dom 
 * elements with valid width and heighth to target, so
 * some trickery was used to hide the soundcloud embeds
 * from the user but leave them visible to the code, 
 * therefore avoiding errors in the console */
-.visuallyhidden { 
+.visuallyhidden-Soundcloud { 
   position: absolute; 
   overflow: hidden; 
   clip: rect(0 0 1 300);
   height: 1px; width: 300px; 
   margin: 2px; padding: 1; border: 0;
   visibility: hidden; 
+}
+
+/* styling for hidden input and button to make touch 
+* devices display a keyboard */
+#hiddenInput, #openKeyboard {
+  visibility: hidden;
 }
 
 .titleLogo {
@@ -32,7 +51,7 @@
 
 .tree {
     background: url("https://upload.wikimedia.org/wikipedia/commons/4/43/Tree-icon.png");
-    width: 12em;
+    width: 8em;
     height: 5em;
     background-size:100% 100%;
     background-repeat: no-repeat;

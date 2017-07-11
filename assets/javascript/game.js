@@ -50,10 +50,11 @@ var birbs = [
         embedLink: "https://giphy.com/embed/Y5oWh5sA09hBe",
         gifLink: "https://giphy.com/gifs/headlikeanorange-parrot-macaw-scarlet-Y5oWh5sA09hBe"
     },
+
     cockatoo = {
         name: "Cockatoo",
-        embedLink: "https://giphy.com/embed/O97weXwBiU6I0",
-        gifLink: "https://giphy.com/gifs/cockatoo-O97weXwBiU6I0"
+        embedLink: "https://giphy.com/embed/94aIgq3Iq4SCQ",
+        gifLink: "https://giphy.com/gifs/cat-meow-cockatoo-94aIgq3Iq4SCQ"
     },
     cockatiel = {
         name: "Cockatiel",
@@ -66,7 +67,7 @@ var birbs = [
         gifLink: "https://giphy.com/gifs/bird-pearly-conure-KpNyL9LpxTTnq"
     },
     lovebird = {
-        name: "Lovebird",
+        name: "Love Bird",
         embedLink: "https://giphy.com/embed/vDMLHYadpxsOc",
         gifLink: "https://giphy.com/gifs/macaw-cockatoo-sun-conure-vDMLHYadpxsOc"
     },
@@ -137,6 +138,15 @@ function newBirb() {
 function processKey(pressedKey) {
     var key = pressedKey.toLowerCase();
     if (
+        /* --- REGEX EXPLANATION ---
+
+        / (opens a regular expression in JavaScript)
+        ^ (start of line)
+        [a-z] (a single letter from a to z, lowercase only)
+        $ (end of line)
+        / (close the regular expression)
+
+        */
         key.search(/^[a-z]$/) === 0 &&
         !correctGuesses.has(key) &&
         !wrongGuesses.has(key)
@@ -195,29 +205,7 @@ function storeKeyPress(processedKey, birb) {
 
     //display new counter number to screen
     $("#guessRemainNumber").html(guessCounter);
-
-    //check if player has lost before continuing
-    checkLose();
 }
-
-var hangmanGame = (function () {
-    var public = {};
-
-    return public;
-})();
-/*
-  var wrongGuesses = new Set();
-  wrongGuesses.add(key);
-  if (wrongGuesses.has(key)) {
-  
-  }
-
- var wrongGuesses = {};
- wrongGuesses[key] = true;
- if (wrongGuesses[key]) {
-  
- }
-*/
 
 function fetchSoundCloudWidget(iframeId) {
     var iframeElement = $("#" + iframeId + "")[0];
@@ -239,8 +227,8 @@ function checkWin(displayedText, birb) {
     gamePause = true;
     $("#embedLink").attr("src", birb.embedLink);
     $("#gifLink").attr("href", birb.gifLink);
-    pickAndPlaySound();
-    setTimeout(newBirbOnWin, 4000);
+    var timeoutLength = pickAndPlaySound();
+    setTimeout(newBirbOnWin, timeoutLength);
     wins++;
 }
 
@@ -252,9 +240,31 @@ var soundArray = [
 function pickAndPlaySound() {
     var index = Math.floor(Math.random() * soundArray.length);
     playWinSound(soundArray[index][0], soundArray[index][1], soundArray[index][2]);
+    var timeoutLength = soundArray[index][2];
+    return timeoutLength;
 }
 
+// check if the user is interacting using a touch device
+window.addEventListener('touchstart', function onFirstTouch() {
+
+    // 1: display button for bringing up the keyboard by setting a new class on it
+    $("#openKeyboard").css("visibility", "visible");
+
+    // 2: run the keyboard display code
+    $("#openKeyboard").on("click", function(){
+        console.log("The openKeyboard button was clicked");
+        var $inputElement = $("hiddenInput");
+        $("#hiddenInput").css("visibility", "visible"); // unhide the input
+        $("#hiddenInput")[0].focus(); // focus on it so keyboard pops
+        $("#hiddenInput").css("visibility", "hidden"); // hide it again
+    });
+
+  // we only need to know once that a human touched the screen, so we can stop listening now
+  window.removeEventListener('touchstart', onFirstTouch, false);
+}, false);
+
 // initial bird object for page load
+// must be declared after newBirb() function is defined
 var currentBirb = newBirb();
 
 /** Run on page load **/
@@ -262,16 +272,81 @@ $().ready(function() {
     //var currentBirb = chooseBirb();
     //displayBirbText( createBirbText(currentBirb) );
     $("body").on("keyup", function(event) {
-        if (gamePause) return;
+        // if the game is paused, don't react to keypresses
+        if (gamePause) { 
+            return;
+        }
+
+        // get the pressed key using JS .which
         var key = String.fromCharCode(event.which);
+
+        // use processKey() to determine if it is a valid keypress to respond to
         key = processKey(key);
-        if (!key) return;
+
+        // if it is invalid, end the function here
+        if (!key) {
+            return;
+        }
+
+        // if key is valid, update the appropriate letter set and guess counter, 
+        // then display wrong guesses and number of remaining guesses to screen
         storeKeyPress(key, currentBirb);
+
+        // check if player has lost before continuing
+        checkLose();
+
+        // if they lose then game is paused, and end the function before updating
+        // the display any more 
         if (gamePause) {
             return;
         }
+
+        // update the displayed hangman game text after every valid keypress
         var birbText = createBirbText(currentBirb);
         displayBirbText(birbText);
+
+        // check if the player won
         checkWin(birbText, currentBirb);
     });
 });
+
+/* --- EXTRA NOTES --- */
+
+/* EXAMPLE OF USING A FUNCTION TO ENCLOSE A PROGRAM
+    - uses an object to declare public variables to be seen outside of the function
+    - returns the declared variables at the end of the funtion
+    - all other variables used in the function stay scoped within the function
+    - prevents a complicated program from calling or changing global variables 
+        or functions unexpectedly
+    - self calling
+
+var hangmanGame = (function () {
+    var public = {};
+
+    return public;
+})();
+*/
+
+/*
+    NOTES ON DIFFERENT WAYS TO TRACK GUESSES
+    1) ES6
+    var wrongGuesses = new Set();
+    wrongGuesses.add(key);
+    if (wrongGuesses.has(key)) {
+        //code
+    }
+
+    2) CLASSIC JS: OBJECT
+    var wrongGuesses = {};
+    wrongGuesses[key] = true;
+    if (wrongGuesses[key]) {
+        //code
+    }
+
+    3) CLASSIC JS: ARRAY
+    var wrongGuesses = [];
+    wrongGuesses.push(key);
+    if (wrongGuesses.indexOf(key) > -1) {
+        //code
+    }
+*/
