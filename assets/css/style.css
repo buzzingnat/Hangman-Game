@@ -28,8 +28,24 @@ h1, h2, h3, h4, h5, h6 {
 
 /* styling for hidden input and button to make touch 
 * devices display a keyboard */
+#openKeyboard {
+  display: none;
+}
+
 #hiddenInput, #openKeyboard {
   visibility: hidden;
+}
+
+#hiddenInput, #wordDisplay {
+  display: inline;
+  line-height: 1em;
+  margin-top: -.5em;
+}
+#hiddenInput {
+  width: 1em;
+  height: 1em;
+  margin-left: -1em;
+  background: red;
 }
 
 .titleLogo {

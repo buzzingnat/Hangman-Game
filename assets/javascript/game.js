@@ -248,14 +248,16 @@ function pickAndPlaySound() {
 window.addEventListener('touchstart', function onFirstTouch() {
 
     // 1: display button for bringing up the keyboard by setting a new class on it
+    $("#openKeyboard").css("display", "block");
     $("#openKeyboard").css("visibility", "visible");
+    $("#openKeyboard").css("margin-bottom", ".5em");
 
     // 2: run the keyboard display code
     $("#openKeyboard").on("click", function(){
         console.log("The openKeyboard button was clicked");
         var $inputElement = $("#hiddenInput");
         $inputElement.css("visibility", "visible"); // unhide the input
-        $inputElement.focus(); // focus on it so keyboard pops
+        $("#hiddenInput")[0].focus(); // focus on it so keyboard pops
         $inputElement.css("visibility", "hidden"); // hide it again
     });
 
