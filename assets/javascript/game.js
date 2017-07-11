@@ -253,10 +253,10 @@ window.addEventListener('touchstart', function onFirstTouch() {
     // 2: run the keyboard display code
     $("#openKeyboard").on("click", function(){
         console.log("The openKeyboard button was clicked");
-        var $inputElement = $("hiddenInput");
-        $("#hiddenInput").css("visibility", "visible"); // unhide the input
-        $("#hiddenInput")[0].focus(); // focus on it so keyboard pops
-        $("#hiddenInput").css("visibility", "hidden"); // hide it again
+        var $inputElement = $("#hiddenInput");
+        $inputElement.css("visibility", "visible"); // unhide the input
+        $inputElement.focus(); // focus on it so keyboard pops
+        $inputElement.css("visibility", "hidden"); // hide it again
     });
 
   // we only need to know once that a human touched the screen, so we can stop listening now
