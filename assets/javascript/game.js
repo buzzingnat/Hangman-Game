@@ -1,17 +1,23 @@
 /*
 ---- Program Outline ----
 ** dom elements to access/change: **
-- #wordDisplay: begin with underscores for each letter, fill in correct letters as they are guessed;
+- #wordDisplay: begin with underscores for each letter, fill in correct
+    letters as they are guessed;
 - #embedLink: use birbs.[...].embedLink as src value;
 - #gifLink: use birbs.[...].gifLink as href value;
 - #winNumber: track number of wins;
-- #guessRemainNumber: give max number of guesses (12) and subtract one each failed guess. When hit -1, instead od subtracting display utility.dead to video embed
-- #alreadyGuessedLetter: track clicked letter keys, MAKE THEM ALL LOWERCASE, display wrong guesses here - append them in a span with some padding and font styling maybe, when key press is same as wrong guess array or correct guess array, nothing happens;
+- #guessRemainNumber: give max number of guesses (12) and subtract one 
+    each failed guess. When hit -1, instead od subtracting display 
+    utility.dead to video embed
+- #alreadyGuessedLetter: track clicked letter keys, MAKE THEM ALL LOWERCASE, 
+    display wrong guesses here - append them in a span with some padding 
+    and font styling maybe, when key press is same as wrong guess array or 
+    correct guess array, nothing happens;
 
 A lot changed during the actual production of the app, but this was my starting point.
 
-END FEATURES:
-
+FINAL RESULT:
+- Works in: Chrome,OSX; Firefox,OSX, Safari,OSX, Chrome,iOS.
 
 */
 
@@ -279,6 +285,10 @@ window.addEventListener('touchstart', function onFirstTouch() {
         // use JS focus, not jQuery focus! Get the DOM element from jQuery 
         // array by using [0]
         $("#hiddenInput")[0].focus(); // focus on it so keyboard pops
+        // Android doesn't respond to keyboard events like iOS or desktop browsers.
+        // I haven't gotten this to work successfully. If I were to continue work,
+        // I might have to enter text in hidden input area to register a key event.
+        // relevent: https://stackoverflow.com/questions/36862353/virtual-keyboard-events
         $("#hiddenInput").trigger("click"); // android requires a click as well
         $inputElement.css("visibility", "hidden"); // hide it again
     });
